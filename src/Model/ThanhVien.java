@@ -13,13 +13,13 @@ import java.sql.Date;
  */
 public class ThanhVien {
     private String MaTV,TenTV,GioiTinh,DiaChi,SDT,CMND;
-    private Date NgaySinh,NgayDK;
+    private String NgaySinh,NgayDK;
     private Long DiemTichLuy;
 
     public ThanhVien() {
     }
 
-    public ThanhVien(String MaTV, String TenTV, String GioiTinh, String DiaChi, String SDT, String CMND, Date NgaySinh, Date NgayDK, Long DiemTichLuy) {
+    public ThanhVien(String MaTV, String TenTV, String GioiTinh, String DiaChi, String SDT, String CMND, String NgaySinh, String NgayDK, Long DiemTichLuy) {
         this.MaTV = MaTV;
         this.TenTV = TenTV;
         this.GioiTinh = GioiTinh;
@@ -79,19 +79,19 @@ public class ThanhVien {
         this.CMND = CMND;
     }
 
-    public Date getNgaySinh() {
+    public String getNgaySinh() {
         return NgaySinh;
     }
 
-    public void setNgaySinh(Date NgaySinh) {
+    public void setNgaySinh(String NgaySinh) {
         this.NgaySinh = NgaySinh;
     }
 
-    public Date getNgayDK() {
+    public String getNgayDK() {
         return NgayDK;
     }
 
-    public void setNgayDK(Date NgayDK) {
+    public void setNgayDK(String NgayDK) {
         this.NgayDK = NgayDK;
     }
 

@@ -5,10 +5,7 @@
  */
 package UI;
 
-
-
 //import Controller.Oracle;
-
 import controller.ThanhVien_ctrl;
 import java.awt.Color;
 import java.sql.Date;
@@ -22,49 +19,48 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import Model.ThanhVien;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author Phon
  */
 public class QLThanhVien extends javax.swing.JFrame {
+
     ThanhVien_ctrl qltv_ctrl = new ThanhVien_ctrl();
     DefaultTableModel defaultTableModel;
 //    private static void setModel(DefaultTableModel model) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-      
-    
+
     /**
      * Creates new form QLThanhVien
      */
     public QLThanhVien() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);//hiển thị giữa màn hình
- 
+
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);//thoát chương trình khi bấm exit
         this.setVisible(true);//chạy chương trình
-       //set màu cho table
+        //set màu cho table
         JTableHeader table = table_thanhvien.getTableHeader();
-        table.setBackground(new Color(0,153,153));
+        table.setBackground(new Color(0, 153, 153));
         table.setForeground(Color.black);
         showThanhVien(qltv_ctrl.getAllTV());
-       
+
     }
-   
-    public void showThanhVien(List<ThanhVien> tvs){
+
+    public void showThanhVien(List<ThanhVien> tvs) {
         //DefaultTableModel defaultTableModel;
         DefaultTableModel model = (DefaultTableModel) table_thanhvien.getModel();
-       for(ThanhVien tv : tvs){
-            model.addRow(new Object[]{tv.getMaTV(), tv.getTenTV(), tv.getGioiTinh()
-            ,tv.getNgaySinh(),tv.getDiaChi(),tv.getSDT(),tv.getCMND(),
-            tv.getNgayDK(),tv.getDiemTichLuy()});
+        for (ThanhVien tv : tvs) {
+            model.addRow(new Object[]{tv.getMaTV(), tv.getTenTV(), tv.getGioiTinh(),
+                tv.getNgaySinh(), tv.getDiaChi(), tv.getSDT(), tv.getCMND(),
+                tv.getNgayDK(), tv.getDiemTichLuy()});
         }
-        
+
     }
-    
- 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -438,20 +434,20 @@ public class QLThanhVien extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_tracuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tracuuActionPerformed
-       
+
     }//GEN-LAST:event_txt_tracuuActionPerformed
 
     private void txt_tracuuFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_tracuuFocusGained
-          
+
     }//GEN-LAST:event_txt_tracuuFocusGained
 
     private void txt_tracuuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_tracuuFocusLost
-         
+
     }//GEN-LAST:event_txt_tracuuFocusLost
 
     private void panel_exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_exitMouseClicked
         this.dispose(); //tắt tab
-        
+
     }//GEN-LAST:event_panel_exitMouseClicked
 
     private void panel_exitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_exitMouseEntered
@@ -459,7 +455,7 @@ public class QLThanhVien extends javax.swing.JFrame {
     }//GEN-LAST:event_panel_exitMouseEntered
 
     private void panel_exitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_exitMouseExited
-        panel_exit.setBackground(new Color(244,249,248));
+        panel_exit.setBackground(new Color(244, 249, 248));
     }//GEN-LAST:event_panel_exitMouseExited
 
     private void panel_dongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_dongMouseClicked
@@ -471,21 +467,20 @@ public class QLThanhVien extends javax.swing.JFrame {
     }//GEN-LAST:event_panel_dongMouseEntered
 
     private void panel_dongMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_dongMouseExited
-        panel_dong.setBackground(new Color(244,249,248));
+        panel_dong.setBackground(new Color(244, 249, 248));
     }//GEN-LAST:event_panel_dongMouseExited
 
     private void txt_tracuuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tracuuKeyReleased
-        DefaultTableModel table = (DefaultTableModel)table_thanhvien.getModel();
+        DefaultTableModel table = (DefaultTableModel) table_thanhvien.getModel();
         String search = txt_tracuu.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
         table_thanhvien.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
-       
+
     }//GEN-LAST:event_txt_tracuuKeyReleased
 
     private void table_thanhvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_thanhvienMouseClicked
-       
-       
+
         int i = table_thanhvien.getSelectedRow();
         TableModel model = table_thanhvien.getModel();
         txt_matv1.setText(model.getValueAt(i, 0).toString());
@@ -495,27 +490,35 @@ public class QLThanhVien extends javax.swing.JFrame {
         txt_sdt1.setText(model.getValueAt(i, 5).toString());
         txt_cmnd1.setText(model.getValueAt(i, 6).toString());
 //     
-         txt_diem1.setText(model.getValueAt(i,8).toString());
-         txt_ngaysinh1.setDate((Date)(model.getValueAt(i, 3)));
-         txt_ngaydangky1.setDate((Date)(model.getValueAt(i, 7)));
+        txt_diem1.setText(model.getValueAt(i, 8).toString());
+        try {
+            //chuyển từ string qua date và gán vào jdate
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String ngsinh = model.getValueAt(i, 3).toString();
+            String ngdangky = model.getValueAt(i, 7).toString();
+            txt_ngaysinh1.setDate(sdf.parse(ngsinh));
+            txt_ngaydangky1.setDate(sdf.parse(ngdangky));
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi");
+        }
     }//GEN-LAST:event_table_thanhvienMouseClicked
 
     private void button_tracuu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_tracuu1ActionPerformed
-         txt_tentv2.setText("");
+        txt_tentv2.setText("");
         txt_gioitinh1.setText("");
         txt_ngaysinh1.setDate(null);
         txt_ngaydangky1.setDate(null);
         txt_diachi1.setText("");
         txt_sdt1.setText("");
         txt_cmnd1.setText("");
-        txt_diem1.setText("0"); 
-         txt_matv1.setText("");
+        txt_diem1.setText("0");
+        txt_matv1.setText("");
     }//GEN-LAST:event_button_tracuu1ActionPerformed
 
     private void button_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_xoaActionPerformed
-         int xacnhanxoa = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá thành viên này không?", "Xác nhận cậpt nhật",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-        if(xacnhanxoa == JOptionPane.YES_OPTION)
-        {
+        int xacnhanxoa = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá thành viên này không?", "Xác nhận cậpt nhật", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (xacnhanxoa == JOptionPane.YES_OPTION) {
             System.out.println("UI.QLThanhVien.button_xoaActionPerformed()");
             try {
 //             Connection con =  JDBCConnection.getJDBCConnection();
@@ -523,8 +526,8 @@ public class QLThanhVien extends javax.swing.JFrame {
 //            pre.setString(1, txt_matv1.getText());
 //           int ps= pre.executeUpdate();
 //              System.out.println("UI.QLThanhVien.button_xoaActionPerformed("+ps );
-            qltv_ctrl.XoaTV(txt_matv1.getText());
-            JOptionPane.showMessageDialog(null, "Xoá Thành công !");
+                qltv_ctrl.XoaTV(txt_matv1.getText());
+                JOptionPane.showMessageDialog(null, "Xoá Thành công !");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Xoá không thành công !");
                 e.printStackTrace();
@@ -533,76 +536,71 @@ public class QLThanhVien extends javax.swing.JFrame {
     }//GEN-LAST:event_button_xoaActionPerformed
 
     private void butt_capnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butt_capnhatActionPerformed
-        
-        int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật thành viên này không?", "Xác nhận cậpt nhật",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-        if(xacnhan == JOptionPane.YES_OPTION)
-        {
-           
-        try {
-            ThanhVien tv = new ThanhVien();
-           
-           
-            tv.setMaTV(txt_matv1.getText());
-            tv.setTenTV(txt_tentv2.getText());
-            tv.setGioiTinh(txt_gioitinh1.getText());
-            tv.setDiaChi(txt_diachi1.getText());
-            tv.setCMND(txt_cmnd1.getText());
-            tv.setSDT(txt_sdt1.getText());
-            tv.setDiemTichLuy(Long.parseLong(txt_diem1.getText()));
-            //tv.setNgaySinh((Date)txt_ngaysinh1.getDate());
-               if(txt_ngaysinh1.getDate() != null ){
-        java.util.Date utilStartDate = txt_ngaysinh1.getDate();
-        java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-        tv.setNgaySinh(sqlStartDate);
-    }
-          //  tv.setNgayDK((Date)txt_ngaydangky1.getDate());
-            if(txt_ngaydangky1.getDate() != null ){
-        java.util.Date utilStartDate = txt_ngaydangky1.getDate();
-        java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-        tv.setNgayDK(sqlStartDate);
-    }
 
-            if (qltv_ctrl.CapNhatTV(tv)) {
-                JOptionPane.showMessageDialog(null, "Cập nhật Thành viên thành công");
-            } else {
-                JOptionPane.showMessageDialog(null, "Cập nhật không thành công");
+        int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật thành viên này không?", "Xác nhận cậpt nhật", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (xacnhan == JOptionPane.YES_OPTION) {
+
+            try {
+                ThanhVien tv = new ThanhVien();
+
+                tv.setMaTV(txt_matv1.getText());
+                tv.setTenTV(txt_tentv2.getText());
+                tv.setGioiTinh(txt_gioitinh1.getText());
+                tv.setDiaChi(txt_diachi1.getText());
+                tv.setCMND(txt_cmnd1.getText());
+                tv.setSDT(txt_sdt1.getText());
+                tv.setDiemTichLuy(Long.parseLong(txt_diem1.getText()));
+                //tv.setNgaySinh((Date)txt_ngaysinh1.getDate());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+//               
+                    String ngsinh = sdf.format(txt_ngaysinh1.getDate());
+                    tv.setNgaySinh(ngsinh);
+                    String ngdk = sdf.format(txt_ngaydangky1.getDate());
+                    tv.setNgayDK(ngdk);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Lỗi ngày tháng năm");
+                    e.printStackTrace();
+                }
+
+                if (qltv_ctrl.CapNhatTV(tv)) {
+                    JOptionPane.showMessageDialog(null, "Cập nhật Thành viên thành công");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cập nhật không thành công");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
             }
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        }
 
-        }
-           
-        }
-        
-     
-         
+
     }//GEN-LAST:event_butt_capnhatActionPerformed
 
     private void button_tracuu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_tracuu1MouseClicked
-      
-        
-                
+
+
     }//GEN-LAST:event_button_tracuu1MouseClicked
 
     private void table_thanhvienMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_thanhvienMouseReleased
-         
+
     }//GEN-LAST:event_table_thanhvienMouseReleased
 
     private void Button_TaiLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_TaiLaiActionPerformed
-         DefaultTableModel model = (DefaultTableModel) table_thanhvien.getModel();
-         model.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel) table_thanhvien.getModel();
+        model.setRowCount(0);
         //table_thanhvien.setModel(new DefaultTableModel(null,new String[]{"MaTV","Tên","Giới Tính", "Ngày sinh", "Địa chỉ","SDT","CMND","Ngày DK","Điểm"}));
-       //DefaultTableModel.addRow(new Object[]{lPhim.getMaLP(),lPhim.getTenLP(),lPhim.getHinhThuc()});
-         showThanhVien(qltv_ctrl.getAllTV());
-       
+        //DefaultTableModel.addRow(new Object[]{lPhim.getMaLP(),lPhim.getTenLP(),lPhim.getHinhThuc()});
+        showThanhVien(qltv_ctrl.getAllTV());
+
     }//GEN-LAST:event_Button_TaiLaiActionPerformed
 
     private void button_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_themActionPerformed
-  try {
+        try {
             ThanhVien tv = new ThanhVien();
-           
-           
+
             tv.setMaTV(txt_matv1.getText());
             tv.setTenTV(txt_tentv2.getText());
             tv.setGioiTinh(txt_gioitinh1.getText());
@@ -610,29 +608,17 @@ public class QLThanhVien extends javax.swing.JFrame {
             tv.setCMND(txt_cmnd1.getText());
             tv.setSDT(txt_sdt1.getText());
             tv.setDiemTichLuy(Long.parseLong(txt_diem1.getText()));
-               if(txt_ngaydangky1.getDate() != null ){
-        java.util.Date utilStartDate = txt_ngaydangky1.getDate();
-        java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-        tv.setNgayDK(sqlStartDate);
-    }
-          //  tv.setNgayDK((Date)txt_ngaydangky1.getDate());
-        //    tv.setNgaySinh((Date)txt_ngaysinh1.getDate());
-                if(txt_ngaysinh1.getDate() != null ){
-        java.util.Date utilStartDate = txt_ngaysinh1.getDate();
-        java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-        tv.setNgaySinh(sqlStartDate);
-    }
-//            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-//            try {
-////               
-//                String ngsinh = sdf.format(txt_ngaysinh1.getDate());
-//                tv.setNgaySinh(ngsinh);
-//                String ngdk = sdf.format(txt_ngaydangky1.getDate());
-//                tv.setNgayDangKy(ngdk);
-//            } catch (Exception e) {
-//                JOptionPane.showMessageDialog(null, "Lỗi ngày tháng năm");
-//                e.printStackTrace();
-//            }
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+//               
+                String ngsinh = sdf.format(txt_ngaysinh1.getDate());
+                tv.setNgaySinh(ngsinh);
+                String ngdk = sdf.format(txt_ngaydangky1.getDate());
+                tv.setNgayDK(ngdk);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Lỗi ngày tháng năm");
+                e.printStackTrace();
+            }
 
             if (new ThanhVien_ctrl().ThemThanhVien(tv)) {
                 JOptionPane.showMessageDialog(null, "Thêm Thành viên thành công");
@@ -644,7 +630,7 @@ public class QLThanhVien extends javax.swing.JFrame {
             ex.printStackTrace();
 
         }
-       
+
     }//GEN-LAST:event_button_themActionPerformed
 
 //   public boolean UpdateTV(ThanhVien t){
@@ -674,9 +660,9 @@ public class QLThanhVien extends javax.swing.JFrame {
 //
 //    } 
     public static void main(String args[]) {
-       
+
         QLThanhVien traCuuTV = new QLThanhVien();
-          
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -719,4 +705,3 @@ public class QLThanhVien extends javax.swing.JFrame {
     private javax.swing.JTextField txt_tracuu;
     // End of variables declaration//GEN-END:variables
 }
-

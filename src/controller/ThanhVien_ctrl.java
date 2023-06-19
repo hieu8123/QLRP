@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 //import model.ThanhVien;
 import Model.ThanhVien;
+import static Util.DateConverter.convertDateFormat;
 
 /**
  *
@@ -38,11 +39,13 @@ public class ThanhVien_ctrl {
                 tv.setMaTV(rs.getString("MATV"));
                 tv.setTenTV(rs.getString("TENTV"));
                 tv.setGioiTinh(rs.getString("GIOITINH"));
-                tv.setNgaySinh(rs.getDate("NGAYSINH"));
+                String ngaysinhString = convertDateFormat(rs.getString("NGAYSINH"), "yyyy-MM-dd", "dd-MM-yyyy");
+                tv.setNgaySinh(ngaysinhString);
                 tv.setDiaChi(rs.getString("DIACHI"));
                 tv.setSDT(rs.getString("SDT"));
                 tv.setCMND(rs.getString("CMND"));
-                tv.setNgayDK(rs.getDate("NGAYDANGKY"));
+                String ngaydangkyString = convertDateFormat(rs.getString("NGAYDANGKY"), "yyyy-MM-dd", "dd-MM-yyyy");
+                tv.setNgayDK(ngaydangkyString);
                 tv.setDiemTichLuy(rs.getLong("DIEMTICHLUY"));
                 tvs.add(tv);
             }
@@ -66,11 +69,13 @@ public class ThanhVien_ctrl {
             pre.setString(1, t.getMaTV());
             pre.setString(2, t.getTenTV());
             pre.setString(3, t.getGioiTinh());
-            pre.setDate(4, t.getNgaySinh());
+            String ngaysinhString = convertDateFormat(t.getNgaySinh(), "dd-MM-yyyy", "yyyy-MM-dd");
+            pre.setString(4, ngaysinhString);
             pre.setString(5, t.getDiaChi());
             pre.setString(6, t.getSDT());
             pre.setString(7, t.getCMND());
-            pre.setDate(8, t.getNgayDK());
+            String ngaydangkyString = convertDateFormat(t.getNgayDK(), "dd-MM-yyyy", "yyyy-MM-dd");
+            pre.setString(8, ngaydangkyString);
             pre.setLong(9, t.getDiemTichLuy());
             return pre.executeUpdate() > 0;
         } catch (Exception e) {
@@ -118,11 +123,13 @@ public class ThanhVien_ctrl {
             PreparedStatement pt = con.prepareStatement(query);
             pt.setString(1, tv.getTenTV());
             pt.setString(2, tv.getGioiTinh());
-            pt.setDate(3, tv.getNgaySinh());
+            String ngaysinhString = convertDateFormat(tv.getNgaySinh(), "dd-MM-yyyy", "yyyy-MM-dd");
+            pt.setString(3, ngaysinhString);
             pt.setString(4, tv.getDiaChi());
             pt.setString(5, tv.getSDT());
             pt.setString(6, tv.getCMND());
-            pt.setDate(7, tv.getNgayDK());
+            String ngaydangkyString = convertDateFormat(tv.getNgayDK(), "dd-MM-yyyy", "yyyy-MM-dd");
+            pt.setString(7, ngaydangkyString);
             pt.setLong(8, tv.getDiemTichLuy());
             pt.setString(9, tv.getMaTV());
             int tmp = pt.executeUpdate();
